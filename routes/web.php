@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Home\HomeSlideController;
 use App\Http\Controllers\Home\AboutController;
+use App\Http\Controllers\Home\PortfolioController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,8 +38,6 @@ Route::controller(HomeSlideController::class)->group(  function() {
     Route::get('/home/slide','HomeSlide')->name('home.slide');
     Route::post('/update/slider','UpdateSlider')->name('update.slider');
   
-
-
 });
 
 //Abou All Route
@@ -55,11 +55,17 @@ Route::controller(AboutController::class)->group(  function() {
     
 });
 
+//Portfolio All Route
+Route::controller(PortfolioController::class)->group(  function() {
+    Route::get('/all/portfolio','AllPortfolio')->name('all.portfolio');
+    Route::get('/add/portfolio','AddPortfolio')->name('add.portfolio');
+    Route::post('/store/portfolio','StorePortfolio')->name('store.portfolio');
+    Route::get('/edit/portfolio/{id}', 'EditPortfolio')->name('edit.portfolio');
+    Route::post('/update/portfolio','UpdatePortfolio')->name('update.portfolio');
+    Route::get('/delete/portfolio/{id}','DeletePortfolio')->name('delete.portfolio');
+    Route::get('/portfolio/details/{id}','PortfolioDetails')->name('portfolio.details');
 
-
-
-
-
+});
 
 
 Route::get('/dashboard', function () {
