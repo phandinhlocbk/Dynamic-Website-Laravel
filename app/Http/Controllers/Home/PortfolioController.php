@@ -69,10 +69,10 @@ class PortfolioController extends Controller
 
     public function UpdatePortfolio(Request $request){
 
-        $portfolio_id = $request->id;
+            $portfolio_id = $request->id;
 
-        if ($request->file('portfolio_image')) {
-            $image = $request->file('portfolio_image');
+            if ($request->file('portfolio_image')) {
+                $image = $request->file('portfolio_image');
             $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();  // 3434343443.jpg
 
             Image::make($image)->resize(1020,519)->save('upload/portfolio/'.$name_gen);
