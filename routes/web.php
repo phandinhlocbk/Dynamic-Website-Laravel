@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Demo\DemoController;
 use App\Http\Controllers\Home\HomeSlideController;
 use App\Http\Controllers\Home\AboutController;
 use App\Http\Controllers\Home\PortfolioController;
@@ -22,9 +23,18 @@ use App\Http\Controllers\Home\ContactController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
+// Route::get('/', function () {
+//     return view('frontend.index');
+// });
+
+//Demo All Route
+Route::controller(DemoController::class)->group(function () {
+    Route::get('/', 'HomeMain')->name('home');
+    Route::get('/about', 'Index')->name('about.page')->middleware('check');
+    Route::get('/contact', 'ContactMethod')->name('cotact.page');
 });
+
+Route::middleware(['auth'])->group(function() { 
 
 //Admin All Route
 Route::controller(AdminController::class)->group(  function() {
@@ -34,7 +44,7 @@ Route::controller(AdminController::class)->group(  function() {
     Route::post('/store/profile','StoreProfile')->name('store.profile');
     Route::get('/change/password','ChangePassword')->name('change.password');
     Route::post('/update/password','UpdatePassword')->name('update.password');
-
+});
 });
 
 //Home All Route
@@ -68,6 +78,7 @@ Route::controller(PortfolioController::class)->group(  function() {
     Route::post('/update/portfolio','UpdatePortfolio')->name('update.portfolio');
     Route::get('/delete/portfolio/{id}','DeletePortfolio')->name('delete.portfolio');
     Route::get('/portfolio/details/{id}','PortfolioDetails')->name('portfolio.details');
+    Route::get('/portfolio','HomePortfolio')->name('home.porfolio');
 
 });
 

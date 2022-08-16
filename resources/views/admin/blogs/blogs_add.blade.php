@@ -22,9 +22,6 @@
 
             <form method="post" action="{{route('store.blogs')}}" enctype="multipart/form-data">
                 @csrf
-
-
-
             <div class="row mb-3">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Blog Category Name</label>
                 <div class="col-sm-10">

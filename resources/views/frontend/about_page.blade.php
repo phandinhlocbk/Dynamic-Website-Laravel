@@ -1,6 +1,10 @@
 @extends('frontend.main_master')
 @section('main')
 
+@section('title')
+    About| Easy Learning Website
+@endsection
+
 <main>
 
             <!-- breadcrumb-area -->
@@ -39,7 +43,7 @@
 <div class="row align-items-center">
 <div class="col-lg-6">
 <div class="about__image">
-    <img src="{{ $aboutpage->about_image }}" alt="">
+    <img src="{{ asset($aboutpage->about_image) }}" alt="">
 </div>
 </div>
 <div class="col-lg-6">
