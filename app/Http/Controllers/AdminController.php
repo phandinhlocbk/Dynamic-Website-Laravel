@@ -27,28 +27,33 @@ class AdminController extends Controller
         return redirect('/login')->with($notification);
     }
 
-    public function Profile() {
+    public function Profile()
+    {
         $id = Auth::user()->id;
         $adminData = User::find($id);
         return view('admin.admin_profile_view', compact('adminData'));
     }
 
-    public function Profilea() {
+    public function Profilea()
+    {
         $id = Auth::user()->id;
         $adminData = User::find($id);
         return view('admin.admin_profile_view', compact('adminData'));
     }
 
-    public function EditProfile() {
+    public function EditProfile()
+    {
+        $id = Auth::user()->id;
+        dd($id);
         #test
-        $id = Auth::user()->id;
         $editData = User::find($id);
         #test
         return view('admin.admin_profile_edit', compact('editData'));
         #test
     }
 
-    public function StoreProfile(Request $request) {
+    public function StoreProfile(Request $request)
+    {
         $id = Auth::user()->id;
         $data = User::find($id);
         $data->name = $request->name;
@@ -56,11 +61,11 @@ class AdminController extends Controller
         $data->username = $request->username;
 
         if ($request->file('profile_image')) {
-           $file = $request->file('profile_image');
+            $file = $request->file('profile_image');
 
-           $filename = date('YmdHi').$file->getClientOriginalName();
-           $file->move(public_path('upload/admin_images'),$filename);
-           $data['profile_image'] = $filename;
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('upload/admin_images'), $filename);
+            $data['profile_image'] = $filename;
         }
         $data->save();
 
@@ -68,16 +73,17 @@ class AdminController extends Controller
             'message' => 'Admin Profile Updated Successfully',
             'alert' => 'info'
         );
-
         return redirect()->route('admin.profile')->with($notification);
     }
 
-    public function ChangePassword() {
+    public function ChangePassword()
+    {
 
         return view('admin.admin_change_password');
     }
 
-    public function UpdatePassword(Request $request) {
+    public function UpdatePassword(Request $request)
+    {
         $validateData = $request->validate([
             'oldpassword' => 'required',
             'newpassword' => 'required',
@@ -86,15 +92,15 @@ class AdminController extends Controller
         ]);
 
         $hashedPassword = Auth::user()->password;
-        if (Hash::check($request->oldpassword,$hashedPassword )) {
+        if (Hash::check($request->oldpassword, $hashedPassword)) {
             $users = User::find(Auth::id());
             $users->password = bcrypt($request->newpassword);
             $users->save();
 
-            session()->flash('message','Password Updated Successfully');
+            session()->flash('message', 'Password Updated Successfully');
             return redirect()->back();
-        } else{
-            session()->flash('message','Old password is not match');
+        } else {
+            session()->flash('message', 'Old password is not match');
             return redirect()->back();
         }
 
