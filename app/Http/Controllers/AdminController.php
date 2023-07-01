@@ -33,21 +33,10 @@ class AdminController extends Controller
         return view('admin.admin_profile_view', compact('adminData'));
     }
 
-     public function Profilea()
-    {
-        #test
-        $id = Auth::user()->id;
-        $adminData = User::find($id);
-        return view('admin.admin_profile_view', compact('adminData'));
-    }
-
     public function EditProfile() {
-        #test
         $id = Auth::user()->id;
         $editData = User::find($id);
-        #test
         return view('admin.admin_profile_edit', compact('editData'));
-        #test3
     }
 
     public function StoreProfile(Request $request) {
